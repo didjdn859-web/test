@@ -24,12 +24,12 @@ jobs:
 
       - name: Start tmate session
         run: |
-          tmate -F &   # Start in foreground mode in background
-          sleep 5
+          tmate -S /tmp/tmate.sock new-session -d
+          tmate -S /tmp/tmate.sock wait tmate-ready
           echo "SSH connection:"
-          tmate display -p '#{tmate_ssh}'
+          tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'
           echo "Web connection:"
-          tmate display -p '#{tmate_web}'
+          tmate -S /tmp/tmate.sock display -p '#{tmate_web}'
 
       - name: Keep session alive for 2 hours
         run: sleep 7200
